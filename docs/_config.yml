@@ -1,0 +1,21 @@
+title: チョコレート卸向け納品計画WEBアプリ
+description: デパートからの海外高級チョコレート発注に対して、在庫・賞味期限・納品ルールを考慮し、最適な納品計画を自動生成するシステム
+theme: jekyll-theme-cayman
+show_downloads: false
+
+# GitHub Pages settings
+baseurl: ""
+url: ""
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Exclude files from processing
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - "*.log"

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+{% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    {% include head-custom.html %}
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
+      <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
+      {% if site.github.is_project_page %}
+        <a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
+      {% endif %}
+      {% if site.show_downloads %}
+        <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
+        <a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a>
+      {% endif %}
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav style="background-color: #155799; padding: 1rem; text-align: center;">
+      <a href="{{ '/' | relative_url }}" style="color: white; margin: 0 1rem; text-decoration: none; font-weight: bold;">🏠 ホーム</a>
+      <a href="{{ '/requirements' | relative_url }}" style="color: white; margin: 0 1rem; text-decoration: none;">📘 要件定義書</a>
+      <a href="{{ '/business-flow' | relative_url }}" style="color: white; margin: 0 1rem; text-decoration: none;">📗 業務フロー設計</a>
+      <a href="{{ '/user-guide' | relative_url }}" style="color: white; margin: 0 1rem; text-decoration: none;">📙 使い方ガイド</a>
+      <a href="{{ '/readme' | relative_url }}" style="color: white; margin: 0 1rem; text-decoration: none;">📖 README</a>
+    </nav>
+
+    <main id="content" class="main-content" role="main">
+      {{ content }}
+
+      <footer class="site-footer">
+        {% if site.github.is_project_page %}
+          <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
+        {% endif %}
+        <span class="site-footer-credits">チョコレート卸向け納品計画WEBアプリ - バージョン 1.0.0</span>
+      </footer>
+    </main>
+  </body>
+</html>
