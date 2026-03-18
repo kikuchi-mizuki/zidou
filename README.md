@@ -2,7 +2,7 @@
 
 デパートからの**海外高級チョコレート**発注に対して、在庫・賞味期限・納品ルールを考慮し、最適な納品計画を自動生成するシステムのデモ版です。
 
-> 📖 **[オンラインドキュメント（GitHub Pages）](https://YOUR_USERNAME.github.io/chocolate-delivery-app/)** - 詳細な仕様書を公開しています
+> 📖 **[オンラインドキュメント（GitHub Pages）](https://kikuchi-mizuki.github.io/zidou/)** - 詳細な仕様書を公開しています
 
 ## 🍫 取扱商品（専門店向けプレミアムブランド）
 - **Amedei（アメデイ）** - イタリア・トスカーナ
@@ -235,14 +235,14 @@ chocolate-delivery-app/
 
 > 📖 **[GitHub Pagesで公開中](https://YOUR_USERNAME.github.io/chocolate-delivery-app/)** - 見やすい形式でドキュメントを閲覧できます
 
-### 📘 [要件定義書.md](./要件定義書.md) | [オンライン版](https://YOUR_USERNAME.github.io/chocolate-delivery-app/requirements)
+### 📘 [要件定義書.md](./要件定義書.md) | [オンライン版](https://kikuchi-mizuki.github.io/zidou/requirements)
 - システム概要
 - 機能要件（7画面の詳細仕様）
 - 非機能要件
 - データモデル
 - サンプルデータ
 
-### 📗 [業務フロー設計.md](./業務フロー設計.md) | [オンライン版](https://YOUR_USERNAME.github.io/chocolate-delivery-app/business-flow)
+### 📗 [業務フロー設計.md](./業務フロー設計.md) | [オンライン版](https://kikuchi-mizuki.github.io/zidou/business-flow)
 - 全体フロー図
 - 各ステップの詳細
 - ステータス遷移図
@@ -250,7 +250,7 @@ chocolate-delivery-app/
 - エラーハンドリング
 - 業務ルール詳細
 
-### 📙 [使い方ガイド.md](./使い方ガイド.md) | [オンライン版](https://YOUR_USERNAME.github.io/chocolate-delivery-app/user-guide)
+### 📙 [使い方ガイド.md](./使い方ガイド.md) | [オンライン版](https://kikuchi-mizuki.github.io/zidou/user-guide)
 - 各画面の使い方
 - 実際の業務シナリオ例
 - トラブルシューティング

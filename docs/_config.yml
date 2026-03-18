@@ -4,8 +4,8 @@ theme: jekyll-theme-cayman
 show_downloads: false
 
 # GitHub Pages settings
-baseurl: ""
-url: ""
+baseurl: "/zidou"
+url: "https://kikuchi-mizuki.github.io"
 
 # Markdown settings
 markdown: kramdown
