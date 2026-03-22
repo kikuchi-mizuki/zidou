@@ -85,10 +85,10 @@ export default function Dashboard() {
           </Card>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>期限が近い在庫</CardTitle>
+              <CardTitle className="text-base sm:text-lg">期限が近い在庫</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -106,21 +106,24 @@ export default function Dashboard() {
                   return (
                     <div
                       key={item.id}
-                      className="flex items-center justify-between rounded-lg border border-gray-200 p-3"
+                      className="flex flex-col gap-2 rounded-lg border border-gray-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
                     >
-                      <div className="space-y-1">
-                        <p className="font-medium">
+                      <div className="flex-1 min-w-0 space-y-1">
+                        <p className="font-medium text-sm sm:text-base">
                           {product?.name} ({item.lotNumber})
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-xs sm:text-sm text-gray-600">
                           期限: {item.expiryDate}
                         </p>
                       </div>
-                      <Badge
-                        variant={daysUntilExpiry <= 30 ? "destructive" : "warning"}
-                      >
-                        残り{daysUntilExpiry}日
-                      </Badge>
+                      <div className="flex-shrink-0">
+                        <Badge
+                          variant={daysUntilExpiry <= 30 ? "destructive" : "warning"}
+                          className="text-xs"
+                        >
+                          残り{daysUntilExpiry}日
+                        </Badge>
+                      </div>
                     </div>
                   );
                 })}
@@ -130,7 +133,7 @@ export default function Dashboard() {
 
           <Card>
             <CardHeader>
-              <CardTitle>処理待ち発注</CardTitle>
+              <CardTitle className="text-base sm:text-lg">処理待ち発注</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -141,17 +144,19 @@ export default function Dashboard() {
                   return (
                     <div
                       key={order.id}
-                      className="flex items-center justify-between rounded-lg border border-gray-200 p-3"
+                      className="flex flex-col gap-2 rounded-lg border border-gray-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
                     >
-                      <div className="space-y-1">
-                        <p className="font-medium">{order.department}</p>
-                        <p className="text-sm text-gray-600">
+                      <div className="flex-1 min-w-0 space-y-1">
+                        <p className="font-medium text-sm sm:text-base">{order.department}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">
                           {product?.name} - {order.quantity}個
                         </p>
                       </div>
-                      <Badge variant="outline">
-                        {order.desiredDeliveryDate}
-                      </Badge>
+                      <div className="flex-shrink-0">
+                        <Badge variant="outline" className="text-xs">
+                          {order.desiredDeliveryDate}
+                        </Badge>
+                      </div>
                     </div>
                   );
                 })}

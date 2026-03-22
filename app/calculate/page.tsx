@@ -107,10 +107,10 @@ export default function CalculatePage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">自動計算</h1>
-          <p className="text-gray-600">納品計画を自動的に作成します</p>
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">自動計算</h1>
+          <p className="text-sm text-gray-600 sm:text-base">納品計画を自動的に作成します</p>
         </div>
 
         <Card>
@@ -149,26 +149,28 @@ export default function CalculatePage() {
         {logs.length > 0 && (
           <Card>
             <CardHeader>
-              <CardTitle>計算ログ</CardTitle>
+              <CardTitle className="text-base sm:text-lg">計算ログ</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {logs.map((log) => (
                   <div
                     key={log.id}
-                    className="flex items-start gap-3 rounded-lg border border-gray-200 p-4"
+                    className="flex items-start gap-3 rounded-lg border border-gray-200 p-3 sm:p-4"
                   >
-                    {getLogIcon(log.type)}
-                    <div className="flex-1 space-y-1">
-                      <div className="flex items-center gap-2">
-                        <Badge variant={getLogBadgeVariant(log.type)}>
+                    <div className="flex-shrink-0 mt-0.5">
+                      {getLogIcon(log.type)}
+                    </div>
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
+                        <Badge variant={getLogBadgeVariant(log.type)} className="text-xs w-fit">
                           {log.step}
                         </Badge>
                         <span className="text-xs text-gray-500">
                           {log.timestamp}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-700">{log.message}</p>
+                      <p className="text-xs sm:text-sm text-gray-700">{log.message}</p>
                     </div>
                   </div>
                 ))}
@@ -180,8 +182,8 @@ export default function CalculatePage() {
         {isComplete && !hasError && (
           <Card className="border-green-200 bg-green-50">
             <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600" />
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
                 <div className="flex-1">
                   <h3 className="font-medium text-green-900">
                     計算が完了しました
@@ -190,7 +192,7 @@ export default function CalculatePage() {
                     納品計画が作成されました。結果を確認してください。
                   </p>
                 </div>
-                <Button onClick={() => router.push("/delivery-plan")}>
+                <Button onClick={() => router.push("/delivery-plan")} className="w-full sm:w-auto">
                   納品計画を確認
                 </Button>
               </div>

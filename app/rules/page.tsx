@@ -37,13 +37,13 @@ export default function RulesPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">ルール管理</h1>
-            <p className="text-gray-600">納品計画の自動計算ルール</p>
+            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">ルール管理</h1>
+            <p className="text-sm text-gray-600 sm:text-base">納品計画の自動計算ルール</p>
           </div>
-          <Button onClick={() => setShowAddForm(!showAddForm)}>
+          <Button onClick={() => setShowAddForm(!showAddForm)} className="w-full sm:w-auto">
             {showAddForm ? "キャンセル" : "ルール追加"}
           </Button>
         </div>
@@ -89,23 +89,21 @@ export default function RulesPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>登録済みルール</CardTitle>
+            <CardTitle className="text-base sm:text-lg">登録済みルール</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {rules.map((rule) => (
                 <div
                   key={rule.id}
-                  className="flex items-start justify-between rounded-lg border border-gray-200 p-4"
+                  className="flex flex-col gap-3 rounded-lg border border-gray-200 p-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
                 >
-                  <div className="flex-1 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-gray-900">{rule.name}</h3>
-                    </div>
-                    <p className="text-sm text-gray-600">{rule.description}</p>
+                  <div className="flex-1 min-w-0 space-y-1">
+                    <h3 className="font-medium text-gray-900 text-sm sm:text-base">{rule.name}</h3>
+                    <p className="text-xs sm:text-sm text-gray-600">{rule.description}</p>
                   </div>
-                  <div className="ml-4 flex items-center gap-2">
-                    <span className="text-sm text-gray-600">
+                  <div className="flex items-center gap-2 sm:ml-4">
+                    <span className="text-xs sm:text-sm text-gray-600">
                       {rule.enabled ? "有効" : "無効"}
                     </span>
                     <Switch
