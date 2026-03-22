@@ -263,7 +263,7 @@ export default function InventoryPage() {
             ) : (
               <>
                 {/* モバイル: カード形式 */}
-                <div className="space-y-3 md:hidden">
+                <div className="space-y-4 md:hidden">
                   {inventory.map((item) => {
                     const product = products.find(
                       (p) => p.code === item.productCode
@@ -275,57 +275,58 @@ export default function InventoryPage() {
                     return (
                       <div
                         key={item.id}
-                        className="rounded-lg border border-gray-200 p-4 space-y-3"
+                        className="rounded-lg border border-gray-200 p-5 space-y-4"
                       >
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <div className="font-medium text-gray-900">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <div className="text-base font-semibold text-gray-900 mb-1">
                               {product?.name || item.productCode}
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-xs text-gray-500">
                               {item.productCode}
                             </div>
                           </div>
-                          {daysUntilExpiry <= 30 ? (
-                            <Badge variant="destructive">
-                              残り{daysUntilExpiry}日
-                            </Badge>
-                          ) : daysUntilExpiry <= 60 ? (
-                            <Badge variant="warning">
-                              残り{daysUntilExpiry}日
-                            </Badge>
-                          ) : (
-                            <Badge variant="success">正常</Badge>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3 text-sm">
-                          <div>
-                            <span className="text-gray-600">ロット番号:</span>
-                            <div className="font-medium">{item.lotNumber}</div>
-                          </div>
-                          <div>
-                            <span className="text-gray-600">賞味期限:</span>
-                            <div className="font-medium">{item.expiryDate}</div>
+                          <div className="flex-shrink-0">
+                            {daysUntilExpiry <= 30 ? (
+                              <Badge variant="destructive" className="text-xs px-2 py-1">
+                                残り{daysUntilExpiry}日
+                              </Badge>
+                            ) : daysUntilExpiry <= 60 ? (
+                              <Badge variant="warning" className="text-xs px-2 py-1">
+                                残り{daysUntilExpiry}日
+                              </Badge>
+                            ) : (
+                              <Badge variant="success" className="text-xs px-2 py-1">正常</Badge>
+                            )}
                           </div>
                         </div>
 
-                        <div>
-                          <span className="text-sm text-gray-600">ケース数:</span>
-                          <div className="flex items-center gap-2 mt-1">
-                            <input
-                              type="number"
-                              value={item.cases}
-                              onChange={(e) =>
-                                updateCases(
-                                  item.id,
-                                  parseInt(e.target.value) || 0
-                                )
-                              }
-                              className="w-24 rounded border border-gray-300 px-3 py-2 text-sm"
-                              min="0"
-                            />
-                            <span className="text-sm text-gray-600">ケース</span>
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                            <span className="text-sm text-gray-600">ロット番号</span>
+                            <span className="font-medium text-gray-900">{item.lotNumber}</span>
+                          </div>
+                          <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                            <span className="text-sm text-gray-600">賞味期限</span>
+                            <span className="font-medium text-gray-900">{item.expiryDate}</span>
+                          </div>
+                          <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                            <span className="text-sm text-gray-600">ケース数</span>
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="number"
+                                value={item.cases}
+                                onChange={(e) =>
+                                  updateCases(
+                                    item.id,
+                                    parseInt(e.target.value) || 0
+                                  )
+                                }
+                                className="w-20 rounded-md border border-gray-300 px-3 py-2 text-base font-medium text-center"
+                                min="0"
+                              />
+                              <span className="text-sm text-gray-600">ケース</span>
+                            </div>
                           </div>
                         </div>
 
@@ -333,7 +334,7 @@ export default function InventoryPage() {
                           variant="ghost"
                           size="sm"
                           onClick={() => deleteInventory(item.id)}
-                          className="w-full text-red-600 hover:text-red-700"
+                          className="w-full mt-2 text-red-600 hover:text-red-700 hover:bg-red-50"
                         >
                           削除
                         </Button>
