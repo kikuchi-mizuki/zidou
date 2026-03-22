@@ -261,18 +261,9 @@ export default function InventoryPage() {
                 在庫データがありません
               </div>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>商品</TableHead>
-                    <TableHead>ロット番号</TableHead>
-                    <TableHead>賞味期限</TableHead>
-                    <TableHead>ケース数</TableHead>
-                    <TableHead>状態</TableHead>
-                    <TableHead>操作</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+              <>
+                {/* モバイル: カード形式 */}
+                <div className="space-y-3 md:hidden">
                   {inventory.map((item) => {
                     const product = products.find(
                       (p) => p.code === item.productCode
@@ -282,41 +273,19 @@ export default function InventoryPage() {
                     );
 
                     return (
-                      <TableRow key={item.id}>
-                        <TableCell>
+                      <div
+                        key={item.id}
+                        className="rounded-lg border border-gray-200 p-4 space-y-3"
+                      >
+                        <div className="flex items-start justify-between">
                           <div>
-                            <div className="font-medium">
+                            <div className="font-medium text-gray-900">
                               {product?.name || item.productCode}
                             </div>
                             <div className="text-sm text-gray-600">
                               {item.productCode}
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          {item.lotNumber}
-                        </TableCell>
-                        <TableCell>{item.expiryDate}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="number"
-                              value={item.cases}
-                              onChange={(e) =>
-                                updateCases(
-                                  item.id,
-                                  parseInt(e.target.value) || 0
-                                )
-                              }
-                              className="w-20 rounded border border-gray-300 px-2 py-1 text-sm"
-                              min="0"
-                            />
-                            <span className="text-sm text-gray-600">
-                              ケース
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell>
                           {daysUntilExpiry <= 30 ? (
                             <Badge variant="destructive">
                               残り{daysUntilExpiry}日
@@ -328,22 +297,138 @@ export default function InventoryPage() {
                           ) : (
                             <Badge variant="success">正常</Badge>
                           )}
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => deleteInventory(item.id)}
-                            className="text-red-600 hover:text-red-700"
-                          >
-                            削除
-                          </Button>
-                        </TableCell>
-                      </TableRow>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                          <div>
+                            <span className="text-gray-600">ロット番号:</span>
+                            <div className="font-medium">{item.lotNumber}</div>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">賞味期限:</span>
+                            <div className="font-medium">{item.expiryDate}</div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <span className="text-sm text-gray-600">ケース数:</span>
+                          <div className="flex items-center gap-2 mt-1">
+                            <input
+                              type="number"
+                              value={item.cases}
+                              onChange={(e) =>
+                                updateCases(
+                                  item.id,
+                                  parseInt(e.target.value) || 0
+                                )
+                              }
+                              className="w-24 rounded border border-gray-300 px-3 py-2 text-sm"
+                              min="0"
+                            />
+                            <span className="text-sm text-gray-600">ケース</span>
+                          </div>
+                        </div>
+
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => deleteInventory(item.id)}
+                          className="w-full text-red-600 hover:text-red-700"
+                        >
+                          削除
+                        </Button>
+                      </div>
                     );
                   })}
-                </TableBody>
-              </Table>
+                </div>
+
+                {/* タブレット以上: テーブル形式 */}
+                <div className="hidden md:block">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>商品</TableHead>
+                        <TableHead>ロット番号</TableHead>
+                        <TableHead>賞味期限</TableHead>
+                        <TableHead>ケース数</TableHead>
+                        <TableHead>状態</TableHead>
+                        <TableHead>操作</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {inventory.map((item) => {
+                        const product = products.find(
+                          (p) => p.code === item.productCode
+                        );
+                        const daysUntilExpiry = getDaysUntilExpiry(
+                          item.expiryDate
+                        );
+
+                        return (
+                          <TableRow key={item.id}>
+                            <TableCell>
+                              <div>
+                                <div className="font-medium">
+                                  {product?.name || item.productCode}
+                                </div>
+                                <div className="text-sm text-gray-600">
+                                  {item.productCode}
+                                </div>
+                              </div>
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {item.lotNumber}
+                            </TableCell>
+                            <TableCell>{item.expiryDate}</TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="number"
+                                  value={item.cases}
+                                  onChange={(e) =>
+                                    updateCases(
+                                      item.id,
+                                      parseInt(e.target.value) || 0
+                                    )
+                                  }
+                                  className="w-20 rounded border border-gray-300 px-2 py-1 text-sm"
+                                  min="0"
+                                />
+                                <span className="text-sm text-gray-600">
+                                  ケース
+                                </span>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              {daysUntilExpiry <= 30 ? (
+                                <Badge variant="destructive">
+                                  残り{daysUntilExpiry}日
+                                </Badge>
+                              ) : daysUntilExpiry <= 60 ? (
+                                <Badge variant="warning">
+                                  残り{daysUntilExpiry}日
+                                </Badge>
+                              ) : (
+                                <Badge variant="success">正常</Badge>
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => deleteInventory(item.id)}
+                                className="text-red-600 hover:text-red-700"
+                              >
+                                削除
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>

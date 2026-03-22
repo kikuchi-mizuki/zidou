@@ -89,13 +89,13 @@ export default function OrdersPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">発注管理</h1>
-            <p className="text-gray-600">デパートからの発注一覧</p>
+            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">発注管理</h1>
+            <p className="text-sm text-gray-600 sm:text-base">デパートからの発注一覧</p>
           </div>
-          <Button onClick={() => setShowAddForm(!showAddForm)}>
+          <Button onClick={() => setShowAddForm(!showAddForm)} className="w-full sm:w-auto">
             {showAddForm ? (
               <>
                 <X className="mr-2 h-4 w-4" />
@@ -214,19 +214,9 @@ export default function OrdersPage() {
                 発注データがありません
               </div>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>発注日</TableHead>
-                    <TableHead>デパート</TableHead>
-                    <TableHead>商品</TableHead>
-                    <TableHead>数量</TableHead>
-                    <TableHead>希望納品日</TableHead>
-                    <TableHead>ステータス</TableHead>
-                    <TableHead>操作</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+              <>
+                {/* モバイル: カード形式 */}
+                <div className="space-y-3 md:hidden">
                   {orders.map((order) => {
                     const product = products.find(
                       (p) => p.code === order.productCode
@@ -236,54 +226,138 @@ export default function OrdersPage() {
                       : 0;
 
                     return (
-                      <TableRow key={order.id}>
-                        <TableCell className="text-sm text-gray-600">
-                          {order.createdAt
-                            ? new Date(order.createdAt).toLocaleDateString(
-                                "ja-JP"
-                              )
-                            : "-"}
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          {order.department}
-                        </TableCell>
-                        <TableCell>
+                      <div
+                        key={order.id}
+                        className="rounded-lg border border-gray-200 p-4 space-y-3"
+                      >
+                        <div className="flex items-start justify-between">
                           <div>
+                            <div className="font-medium text-gray-900">
+                              {order.department}
+                            </div>
+                            <div className="text-sm text-gray-600">
+                              {order.createdAt
+                                ? new Date(order.createdAt).toLocaleDateString("ja-JP")
+                                : "-"}
+                            </div>
+                          </div>
+                          {getStatusBadge(order.status)}
+                        </div>
+
+                        <div>
+                          <div className="text-sm text-gray-600">商品</div>
+                          <div className="font-medium">
+                            {product?.name || order.productCode}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            {order.productCode}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                          <div>
+                            <span className="text-gray-600">数量:</span>
                             <div className="font-medium">
-                              {product?.name || order.productCode}
-                            </div>
-                            <div className="text-sm text-gray-600">
-                              {order.productCode}
+                              {order.quantity}個 ({requiredCases}ケース)
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell>
                           <div>
-                            <div>{order.quantity}個</div>
-                            <div className="text-sm text-gray-600">
-                              ({requiredCases}ケース)
+                            <span className="text-gray-600">希望納品日:</span>
+                            <div className="font-medium">
+                              {order.desiredDeliveryDate}
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell>{order.desiredDeliveryDate}</TableCell>
-                        <TableCell>{getStatusBadge(order.status)}</TableCell>
-                        <TableCell>
-                          {order.status === "pending" && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => deleteOrder(order.id)}
-                              className="text-red-600 hover:text-red-700"
-                            >
-                              削除
-                            </Button>
-                          )}
-                        </TableCell>
-                      </TableRow>
+                        </div>
+
+                        {order.status === "pending" && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => deleteOrder(order.id)}
+                            className="w-full text-red-600 hover:text-red-700"
+                          >
+                            削除
+                          </Button>
+                        )}
+                      </div>
                     );
                   })}
-                </TableBody>
-              </Table>
+                </div>
+
+                {/* タブレット以上: テーブル形式 */}
+                <div className="hidden md:block">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>発注日</TableHead>
+                        <TableHead>デパート</TableHead>
+                        <TableHead>商品</TableHead>
+                        <TableHead>数量</TableHead>
+                        <TableHead>希望納品日</TableHead>
+                        <TableHead>ステータス</TableHead>
+                        <TableHead>操作</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {orders.map((order) => {
+                        const product = products.find(
+                          (p) => p.code === order.productCode
+                        );
+                        const requiredCases = product
+                          ? Math.ceil(order.quantity / product.unitsPerCase)
+                          : 0;
+
+                        return (
+                          <TableRow key={order.id}>
+                            <TableCell className="text-sm text-gray-600">
+                              {order.createdAt
+                                ? new Date(order.createdAt).toLocaleDateString(
+                                    "ja-JP"
+                                  )
+                                : "-"}
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {order.department}
+                            </TableCell>
+                            <TableCell>
+                              <div>
+                                <div className="font-medium">
+                                  {product?.name || order.productCode}
+                                </div>
+                                <div className="text-sm text-gray-600">
+                                  {order.productCode}
+                                </div>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div>
+                                <div>{order.quantity}個</div>
+                                <div className="text-sm text-gray-600">
+                                  ({requiredCases}ケース)
+                                </div>
+                              </div>
+                            </TableCell>
+                            <TableCell>{order.desiredDeliveryDate}</TableCell>
+                            <TableCell>{getStatusBadge(order.status)}</TableCell>
+                            <TableCell>
+                              {order.status === "pending" && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => deleteOrder(order.id)}
+                                  className="text-red-600 hover:text-red-700"
+                                >
+                                  削除
+                                </Button>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>

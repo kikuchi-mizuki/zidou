@@ -59,20 +59,20 @@ export default function DeliveryPlanPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">納品計画</h1>
-            <p className="text-gray-600">自動計算された納品計画</p>
+            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">納品計画</h1>
+            <p className="text-sm text-gray-600 sm:text-base">自動計算された納品計画</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             {!allApproved && plans.length > 0 && (
-              <Button onClick={handleApprove} variant="default">
+              <Button onClick={handleApprove} variant="default" className="w-full sm:w-auto">
                 <CheckCircle className="mr-2 h-4 w-4" />
                 計画を承認
               </Button>
             )}
-            <Button onClick={handleExport} variant="outline">
+            <Button onClick={handleExport} variant="outline" className="w-full sm:w-auto">
               <Download className="mr-2 h-4 w-4" />
               Excel出力
             </Button>
