@@ -27,26 +27,26 @@ export default function ProductsPage() {
           </CardHeader>
           <CardContent>
             {/* モバイル: カード形式 */}
-            <div className="space-y-3 md:hidden">
+            <div className="space-y-4 md:hidden">
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="rounded-lg border border-gray-200 p-4 space-y-2"
+                  className="rounded-lg border border-gray-200 p-5 space-y-4"
                 >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="font-medium text-gray-900">{product.name}</div>
-                      <div className="text-sm text-gray-600">{product.code}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-base font-semibold text-gray-900 mb-1">
+                      {product.name}
                     </div>
+                    <div className="text-xs text-gray-500">{product.code}</div>
                   </div>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div>
-                      <span className="text-gray-600">ブランド:</span>
-                      <div className="font-medium">{product.brand}</div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                      <span className="text-sm text-gray-600">ブランド</span>
+                      <span className="font-medium text-gray-900">{product.brand}</span>
                     </div>
-                    <div>
-                      <span className="text-gray-600">ケース入数:</span>
-                      <div className="font-medium">{product.unitsPerCase}個</div>
+                    <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                      <span className="text-sm text-gray-600">ケース入数</span>
+                      <span className="font-medium text-gray-900">{product.unitsPerCase}個</span>
                     </div>
                   </div>
                 </div>

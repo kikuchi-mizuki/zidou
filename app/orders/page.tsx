@@ -216,7 +216,7 @@ export default function OrdersPage() {
             ) : (
               <>
                 {/* モバイル: カード形式 */}
-                <div className="space-y-3 md:hidden">
+                <div className="space-y-4 md:hidden">
                   {orders.map((order) => {
                     const product = products.find(
                       (p) => p.code === order.productCode
@@ -228,44 +228,46 @@ export default function OrdersPage() {
                     return (
                       <div
                         key={order.id}
-                        className="rounded-lg border border-gray-200 p-4 space-y-3"
+                        className="rounded-lg border border-gray-200 p-5 space-y-4"
                       >
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <div className="font-medium text-gray-900">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <div className="text-base font-semibold text-gray-900 mb-1">
                               {order.department}
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-xs text-gray-500">
                               {order.createdAt
                                 ? new Date(order.createdAt).toLocaleDateString("ja-JP")
                                 : "-"}
                             </div>
                           </div>
-                          {getStatusBadge(order.status)}
+                          <div className="flex-shrink-0">
+                            {getStatusBadge(order.status)}
+                          </div>
                         </div>
 
                         <div>
-                          <div className="text-sm text-gray-600">商品</div>
-                          <div className="font-medium">
+                          <div className="text-sm text-gray-600 mb-1">商品</div>
+                          <div className="font-medium text-gray-900">
                             {product?.name || order.productCode}
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-xs text-gray-500 mt-1">
                             {order.productCode}
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3 text-sm">
-                          <div>
-                            <span className="text-gray-600">数量:</span>
-                            <div className="font-medium">
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                            <span className="text-sm text-gray-600">数量</span>
+                            <span className="font-medium text-gray-900">
                               {order.quantity}個 ({requiredCases}ケース)
-                            </div>
+                            </span>
                           </div>
-                          <div>
-                            <span className="text-gray-600">希望納品日:</span>
-                            <div className="font-medium">
+                          <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                            <span className="text-sm text-gray-600">希望納品日</span>
+                            <span className="font-medium text-gray-900">
                               {order.desiredDeliveryDate}
-                            </div>
+                            </span>
                           </div>
                         </div>
 
@@ -274,7 +276,7 @@ export default function OrdersPage() {
                             variant="ghost"
                             size="sm"
                             onClick={() => deleteOrder(order.id)}
-                            className="w-full text-red-600 hover:text-red-700"
+                            className="w-full mt-2 text-red-600 hover:text-red-700 hover:bg-red-50"
                           >
                             削除
                           </Button>

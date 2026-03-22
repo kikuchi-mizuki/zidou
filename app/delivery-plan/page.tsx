@@ -148,45 +148,96 @@ export default function DeliveryPlanPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>デパート</TableHead>
-                        <TableHead>商品</TableHead>
-                        <TableHead>ケース数</TableHead>
-                        <TableHead>使用ロット</TableHead>
-                        <TableHead>賞味期限</TableHead>
-                        <TableHead>状態</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {groupedPlans[date].map(plan => (
-                        <TableRow key={plan.id}>
-                          <TableCell className="font-medium">
-                            {plan.department}
-                          </TableCell>
-                          <TableCell>
-                            <div>
-                              <div className="font-medium">{plan.productName}</div>
-                              <div className="text-sm text-gray-600">
-                                {plan.productCode}
-                              </div>
+                  {/* モバイル: カード形式 */}
+                  <div className="space-y-4 md:hidden">
+                    {groupedPlans[date].map(plan => (
+                      <div
+                        key={plan.id}
+                        className="rounded-lg border border-gray-200 p-5 space-y-4"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <div className="text-base font-semibold text-gray-900 mb-1">
+                              {plan.department}
                             </div>
-                          </TableCell>
-                          <TableCell>{plan.cases}ケース</TableCell>
-                          <TableCell>{plan.lotNumber}</TableCell>
-                          <TableCell>{plan.expiryDate}</TableCell>
-                          <TableCell>
+                            <div className="text-sm text-gray-600">
+                              {plan.productName}
+                            </div>
+                            <div className="text-xs text-gray-500 mt-1">
+                              {plan.productCode}
+                            </div>
+                          </div>
+                          <div className="flex-shrink-0">
                             {plan.warning ? (
-                              <Badge variant="warning">{plan.warning}</Badge>
+                              <Badge variant="warning" className="text-xs px-2 py-1">
+                                {plan.warning}
+                              </Badge>
                             ) : (
-                              <Badge variant="success">正常</Badge>
+                              <Badge variant="success" className="text-xs px-2 py-1">正常</Badge>
                             )}
-                          </TableCell>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                            <span className="text-sm text-gray-600">ケース数</span>
+                            <span className="font-medium text-gray-900">{plan.cases}ケース</span>
+                          </div>
+                          <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                            <span className="text-sm text-gray-600">使用ロット</span>
+                            <span className="font-medium text-gray-900">{plan.lotNumber}</span>
+                          </div>
+                          <div className="flex justify-between items-center py-2 border-t border-gray-100">
+                            <span className="text-sm text-gray-600">賞味期限</span>
+                            <span className="font-medium text-gray-900">{plan.expiryDate}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* タブレット以上: テーブル形式 */}
+                  <div className="hidden md:block">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>デパート</TableHead>
+                          <TableHead>商品</TableHead>
+                          <TableHead>ケース数</TableHead>
+                          <TableHead>使用ロット</TableHead>
+                          <TableHead>賞味期限</TableHead>
+                          <TableHead>状態</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {groupedPlans[date].map(plan => (
+                          <TableRow key={plan.id}>
+                            <TableCell className="font-medium">
+                              {plan.department}
+                            </TableCell>
+                            <TableCell>
+                              <div>
+                                <div className="font-medium">{plan.productName}</div>
+                                <div className="text-sm text-gray-600">
+                                  {plan.productCode}
+                                </div>
+                              </div>
+                            </TableCell>
+                            <TableCell>{plan.cases}ケース</TableCell>
+                            <TableCell>{plan.lotNumber}</TableCell>
+                            <TableCell>{plan.expiryDate}</TableCell>
+                            <TableCell>
+                              {plan.warning ? (
+                                <Badge variant="warning">{plan.warning}</Badge>
+                              ) : (
+                                <Badge variant="success">正常</Badge>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 </CardContent>
               </Card>
             ))}
