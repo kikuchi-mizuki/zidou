@@ -31,13 +31,13 @@ export default function Dashboard() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">ダッシュボード</h1>
-          <p className="text-gray-600">納品計画システムの概要</p>
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">ダッシュボード</h1>
+          <p className="text-sm text-gray-600 sm:text-base">納品計画システムの概要</p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">発注件数</CardTitle>

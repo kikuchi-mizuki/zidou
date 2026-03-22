@@ -103,13 +103,13 @@ export default function InventoryPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">在庫管理</h1>
-            <p className="text-gray-600">現在の在庫状況</p>
+            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">在庫管理</h1>
+            <p className="text-sm text-gray-600 sm:text-base">現在の在庫状況</p>
           </div>
-          <Button onClick={() => setShowAddForm(!showAddForm)}>
+          <Button onClick={() => setShowAddForm(!showAddForm)} className="w-full sm:w-auto">
             {showAddForm ? (
               <>
                 <X className="mr-2 h-4 w-4" />
@@ -130,7 +130,7 @@ export default function InventoryPage() {
               <CardTitle>新規在庫登録</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     商品 <span className="text-red-600">*</span>
@@ -222,7 +222,7 @@ export default function InventoryPage() {
           </Card>
         )}
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => {
             const stock = stockByProduct.get(product.code) || 0;
             return (
